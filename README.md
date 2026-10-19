@@ -309,11 +309,4 @@ Exiting PDF RAG Chatbot...
 
 These are potential extensions and are not part of the current implementation.
 
-## Key Takeaway
-
-This project demonstrates a modular RAG workflow that connects document ingestion, semantic retrieval, and LLM-based generation.
-
-By replacing the original YouTube transcript source with PDF ingestion and replacing the previous Hugging Face LLM endpoint with Gemini, the project retains the same core RAG pipeline while enabling question answering over PDF documents.
-
----
 
