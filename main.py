@@ -1,4 +1,6 @@
-from ingestion.loadder import youtube_load
+from pathlib import Path
+
+from ingestion.loadder import pdf_load
 from chunking.chunker import split_docs
 from embeddings.embed import get_embedding
 from vector_store.faiss_store import create_embeddings
@@ -9,13 +11,23 @@ from llm.model import get_llm
 
 def main():
 
-    print("Loading YouTube Transcript...")
+    print("Loading PDF...")
 
-    # Step 1: Load transcript
-    documents = youtube_load("o126p1QN_RI")
+    # Step 1: Load PDF
+    pdf_path = (
+        Path(__file__).parent
+        / "data"
+        / "AI Engineering Building Applications with Foundation Models (Chip Huyen) (z-library.sk, 1lib.sk, z-lib.sk).pdf"
+    )
+
+    documents = pdf_load(str(pdf_path))
+
+    print(f"Loaded {len(documents)} pages.")
 
     # Step 2: Split into chunks
     chunks = split_docs(documents)
+
+    print(f"Created {len(chunks)} chunks.")
 
     # Step 3: Load embedding model
     embedding_model = get_embedding()
@@ -32,41 +44,64 @@ def main():
     # Step 6: Load prompt
     prompt = get_prompt()
 
-    # Step 7: Load LLM
+    # Step 7: Load Gemini LLM
     llm = get_llm()
 
-    print("\nRAG is Ready!")
+    print("\nPDF RAG Chatbot is Ready!")
     print("Type 'exit' to quit.\n")
 
     while True:
 
-        question = input("Question: ")
+        question = input("Question: ").strip()
 
         if question.lower() == "exit":
+            print("Exiting PDF RAG Chatbot...")
             break
 
-        # Retrieve relevant chunks
-        retrieved_docs = retriever.invoke(question)
+        if not question:
+            continue
 
-        # Build context
-        context = "\n\n".join(
-            doc.page_content for doc in retrieved_docs
-        )
+        try:
+            # Step 8: Retrieve relevant chunks
+            retrieved_docs = retriever.invoke(question)
 
-        # Create final prompt
-        final_prompt = prompt.invoke(
-            {
+            # Step 9: Build context
+            context = "\n\n".join(
+                doc.page_content for doc in retrieved_docs
+            )
+
+            # Step 10: Create final prompt
+            final_prompt = prompt.invoke({
                 "context": context,
                 "question": question
-            }
-        )
+            })
 
-        # Generate answer
-        response = llm.invoke(final_prompt)
+            # Step 11: Generate answer using Gemini
+            response = llm.invoke(final_prompt)
 
-        print("\nAnswer:\n")
-        print(response.content)
-        print("-" * 60)
+            # Step 12: Print clean response text
+            print("\nAnswer:\n")
+
+            content = response.content
+
+            if isinstance(content, list):
+                answer = "\n".join(
+                    item["text"]
+                    for item in content
+                    if isinstance(item, dict)
+                    and item.get("type") == "text"
+                    and isinstance(item.get("text"), str)
+                )
+                print(answer if answer else "No text answer returned.")
+            else:
+                print(content)
+
+            print("-" * 60)
+
+        except Exception as e:
+            print(f"\nError while generating answer: {e}")
+            print("Please try asking your question again.")
+            print("-" * 60)
 
 
 if __name__ == "__main__":

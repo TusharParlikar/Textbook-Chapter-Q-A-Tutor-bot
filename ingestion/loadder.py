@@ -1,18 +1,11 @@
-from langchain_community.document_loaders import YoutubeLoader
+from langchain_community.document_loaders import PyPDFLoader
 
-def youtube_load(video_id):
 
+def pdf_load(pdf_path):
     """
-    Give transcript List[Document]
-
+    Load PDF and return a list of LangChain Documents.
     """
+    loader = PyPDFLoader(pdf_path)
+    docs = loader.load()
 
-    transcript = YoutubeLoader(video_id="o126p1QN_RI",language=["en"])
-    docs = transcript.load()
-    
-     return docs
-
-    
-
-
-
+    return docs

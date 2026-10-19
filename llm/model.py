@@ -1,16 +1,22 @@
-from langchain_huggingface import HuggingFaceEndpoint, ChatHuggingFace
+from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
+
 def get_llm():
+    api_key = os.getenv("GOOGLE_API_KEY")
 
-    token = os.getenv("HUGGINGFACEHUB_API_TOKEN")
+    if not api_key:
+        raise ValueError(
+            "GOOGLE_API_KEY is missing from the .env file"
+        )
 
-    llm = HuggingFaceEndpoint(
-        repo_id="Qwen/Qwen2.5-7B-Instruct",
-        task="text-generation"
+    llm = ChatGoogleGenerativeAI(
+        model="gemini-3.8-flash",
+        google_api_key=api_key,
+        temperature=0.2,
     )
 
-    return ChatHuggingFace(llm=llm)
+    return llm
