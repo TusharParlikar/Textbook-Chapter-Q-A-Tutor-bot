@@ -1,4 +1,4 @@
-# PDF RAG ChatBot
+# Textbook-Chapter-Q-A-Tutor-bot
 
 A Retrieval-Augmented Generation (RAG) chatbot that lets you ask questions about a PDF document and receive context-aware answers powered by Google Gemini.
 
