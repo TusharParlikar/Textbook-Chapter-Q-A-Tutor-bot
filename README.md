@@ -230,7 +230,7 @@ Open http://localhost:8501. Pick a book in the sidebar, then ask questions. The 
 
 ### Option B: Terminal
 
-Set the PDF filename in `main.py` (`pdf_path`), then:
+Set `PDF_PATH` in `.env` (see Configuration), then:
 
 ```bash
 python main.py
@@ -248,22 +248,27 @@ cp .env.example .env
 
 | Variable | Purpose |
 |---|---|
-| `GROQ_API_KEY` | If set, answers come from Groq instead of local Ollama |
-| `GROQ_MODEL` | Groq model name (default `llama-3.3-70b-versatile`) |
+| `LLM_API_KEY` | If set, answers come from the hosted API instead of local Ollama |
+| `LLM_BASE_URL` | Any OpenAI-compatible endpoint (default Groq: `https://api.groq.com/openai/v1`) |
+| `LLM_MODEL` | Hosted model name (default `openai/gpt-oss-120b`) |
+| `LLM_TIMEOUT` | Request timeout in seconds (default `120`) |
 | `OLLAMA_MODEL` / `OLLAMA_BASE_URL` | Local Ollama model and server |
 | `EMBEDDING_MODEL` | Hugging Face embedding model |
 | `PDF_PATH` | PDF used by `main.py` |
 
 ## Deploy to Streamlit Community Cloud
 
-Ollama can't run on Streamlit Cloud, so the deployed app uses Groq.
+Ollama can't run on Streamlit Cloud, so the deployed app uses a hosted model on Groq (OpenAI-compatible API).
 
 1. Get a free API key at https://console.groq.com/keys.
 2. Go to https://share.streamlit.io, then **Create app**, then **Deploy a public app from GitHub**.
 3. Repository: `TusharParlikar/Textbook-Chapter-Q-A-Tutor-bot`, branch `main`, main file `app.py`.
 4. Under **Advanced settings**, set Python to **3.12** and paste into **Secrets**:
    ```toml
-   GROQ_API_KEY = "your_groq_key"
+   LLM_BASE_URL = "https://api.groq.com/openai/v1"
+   LLM_API_KEY = "your_groq_key"
+   LLM_MODEL = "openai/gpt-oss-120b"
+   LLM_TIMEOUT = "120"
    ```
 5. Click **Deploy**. The first build takes several minutes, and the first page load spends about 1 to 2 minutes indexing the book.
 
