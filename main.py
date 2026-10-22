@@ -1,4 +1,7 @@
+import os
 from pathlib import Path
+
+from dotenv import load_dotenv
 
 from ingestion.loadder import pdf_load
 from chunking.chunker import split_docs
@@ -8,17 +11,15 @@ from retrieval.retriever import get_retriever
 from prompt.prompt_temp import get_prompt
 from llm.model import get_llm
 
+load_dotenv()
+
 
 def main():
 
     print("Loading PDF...")
 
     # Step 1: Load PDF
-    pdf_path = (
-        Path(__file__).parent
-        / "data"
-        / "AI Engineering Building Applications with Foundation Models (Chip Huyen) (z-library.sk, 1lib.sk, z-lib.sk).pdf"
-    )
+    pdf_path = Path(__file__).parent / os.environ["PDF_PATH"]
 
     documents = pdf_load(str(pdf_path))
 

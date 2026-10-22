@@ -238,6 +238,35 @@ python main.py
 
 Type questions at the `Question:` prompt and `exit` to quit.
 
+## Configuration
+
+Settings live in `.env` (gitignored). Copy the template and edit it:
+
+```bash
+cp .env.example .env
+```
+
+| Variable | Purpose |
+|---|---|
+| `GROQ_API_KEY` | If set, answers come from Groq instead of local Ollama |
+| `GROQ_MODEL` | Groq model name (default `llama-3.3-70b-versatile`) |
+| `OLLAMA_MODEL` / `OLLAMA_BASE_URL` | Local Ollama model and server |
+| `EMBEDDING_MODEL` | Hugging Face embedding model |
+| `PDF_PATH` | PDF used by `main.py` |
+
+## Deploy to Streamlit Community Cloud
+
+Ollama can't run on Streamlit Cloud, so the deployed app uses Groq.
+
+1. Get a free API key at https://console.groq.com/keys.
+2. Go to https://share.streamlit.io, then **Create app**, then **Deploy a public app from GitHub**.
+3. Repository: `TusharParlikar/Textbook-Chapter-Q-A-Tutor-bot`, branch `main`, main file `app.py`.
+4. Under **Advanced settings**, set Python to **3.12** and paste into **Secrets**:
+   ```toml
+   GROQ_API_KEY = "your_groq_key"
+   ```
+5. Click **Deploy**. The first build takes several minutes, and the first page load spends about 1 to 2 minutes indexing the book.
+
 ## Example Questions
 
 - What is the difference between AI engineering and ML engineering?
