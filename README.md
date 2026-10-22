@@ -6,6 +6,10 @@ Instead of relying entirely on an LLM's internal knowledge, the chatbot retrieve
 
 Built with **Python, LangChain, Hugging Face, Sentence Transformers, FAISS, and Google Gemini**.
 
+## Presentation
+
+Project slides: [Textbook Tutor Bot PPT.pptx](Textbook%20Tutor%20Bot%20PPT.pptx)
+
 ## Features
 
 - **PDF ingestion:** Extract text and page metadata using LangChain's `PyPDFLoader`.
