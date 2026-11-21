@@ -16,7 +16,7 @@ export default function Page() {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/api/learning-lab",
+        "/api/learning-lab",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -1,11 +1,7 @@
-# ==========================
-# Virtual Environments
-# ==========================
 .venv/
 venv/
 .venv-1/
 env/
-
 
 __pycache__/
 *.py[cod]
@@ -14,7 +10,6 @@ __pycache__/
 *.so
 *.pyd
 *.dll
-
 
 .env
 .env.*
@@ -26,7 +21,6 @@ __pycache__/
 
 .DS_Store
 Thumbs.db
-
 
 .pytest_cache/
 .coverage
@@ -68,3 +62,22 @@ hf_cache/
 node_modules/
 .npm-cache/
 frontend/dist/
+
+# AI Textbook Chatbot
+chatbot/data/*.pdf
+chatbot/storage/
+
+# Generated model files
+*.safetensors
+*.pt
+*.pth
+*.onnx
+
+# Temporary PDF repair utility
+repair_pdf.py
+
+# Vite and TypeScript
+*.tsbuildinfo
+
+# Local caches
+.cache/

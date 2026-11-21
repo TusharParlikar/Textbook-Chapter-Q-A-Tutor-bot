@@ -2,11 +2,13 @@ import json
 import os
 import re
 from pathlib import Path
-import httpx
 from typing import Literal
+
+import httpx
 from dotenv import load_dotenv
 from fastapi import HTTPException
 from pydantic import BaseModel, ValidationError
+
 from .planner import SYSTEM_PROMPT
 
 ROOT_DIR = Path(__file__).resolve().parents[2]

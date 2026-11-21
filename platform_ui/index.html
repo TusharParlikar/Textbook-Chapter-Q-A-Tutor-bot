@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Learning Platform</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">✦</div>
+        <div>
+          <strong>NEURAL</strong>
+          <small>AI LEARNING PLATFORM</small>
+        </div>
+      </div>
+
+      <p class="section-label">WORKSPACE</p>
+
+      <nav class="navigation">
+        <button class="nav-item active" data-page="home">
+          <span>⌂</span> Dashboard
+        </button>
+        <button class="nav-item" data-page="tutor">
+          <span>✳</span> AI Textbook Tutor
+        </button>
+        <button class="nav-item" data-page="lab">
+          <span>◈</span> AI Learning Lab
+        </button>
+        <button class="nav-item" data-page="coding">
+          <span>⌘</span> Coding Arena
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="version">AI LEARNING PLATFORM · V1.0</div>
+        <p>Learn concepts. Visualize algorithms. Build solutions.</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <strong id="page-title">Dashboard</strong>
+          <span class="breadcrumb"> / Workspace</span>
+        </div>
+        <div class="top-actions">
+          <span class="status-dot"></span>
+          <span>Local development</span>
+        </div>
+      </header>
+
+      <section class="view active" id="home-view">
+        <div class="hero">
+          <div class="eyebrow">YOUR AI LEARNING WORKSPACE</div>
+          <h1>Master AI through<br><em>understanding and practice.</em></h1>
+          <p>
+            Explore foundational concepts, experiment with interactive
+            simulations, and solve real AI/ML coding challenges.
+          </p>
+          <button class="primary-button" data-open="tutor">
+            Start learning <span>→</span>
+          </button>
+        </div>
+
+        <div class="section-heading">
+          <div>
+            <h2>Your learning tools</h2>
+            <p>Three connected ways to learn artificial intelligence.</p>
+          </div>
+          <span class="tool-count">03 MODULES</span>
+        </div>
+
+        <div class="module-grid">
+          <button class="module-card" data-open="tutor">
+            <span class="module-symbol purple">✳</span>
+            <span class="module-tag">KNOWLEDGE</span>
+            <h3>AI Textbook Tutor</h3>
+            <p>
+              Ask questions about your textbooks. Get contextual
+              answers grounded in source material.
+            </p>
+            <span class="module-link">Open Tutor ↗</span>
+          </button>
+
+          <button class="module-card" data-open="lab">
+            <span class="module-symbol blue">◈</span>
+            <span class="module-tag">EXPLORATION</span>
+            <h3>AI Learning Lab</h3>
+            <p>
+              Understand machine learning through interactive
+              visualizations and hands-on simulations.
+            </p>
+            <span class="module-link">Explore Lab ↗</span>
+          </button>
+
+          <button class="module-card" data-open="coding">
+            <span class="module-symbol green">⌘</span>
+            <span class="module-tag">PRACTICE</span>
+            <h3>Coding Arena</h3>
+            <p>
+              Implement ML algorithms in Python and evaluate
+              your solutions against test cases.
+            </p>
+            <span class="module-link">Start Coding ↗</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="view" id="tutor-view">
+        <div class="workspace-heading">
+          <div>
+            <div class="eyebrow">CONVERSATIONAL LEARNING</div>
+            <h1>AI Textbook Tutor</h1>
+            <p>Ask questions grounded in your two AI textbooks.</p>
+          </div>
+          <button class="secondary-button" id="new-chat">
+            + New Chat
+          </button>
+        </div>
+
+        <div class="chat-shell">
+          <div class="messages" id="messages">
+            <div class="welcome">
+              <div class="welcome-icon">✳</div>
+              <h2>What would you like to learn?</h2>
+              <p>
+                Ask about AI fundamentals, foundation models,
+                retrieval, transformers, or machine learning.
+              </p>
+            </div>
+          </div>
+
+          <form id="chat-form" class="chat-form">
+            <textarea
+              id="chat-input"
+              rows="1"
+              placeholder="Ask your AI tutor..."
+              required
+            ></textarea>
+            <button type="submit" id="send-button">↑</button>
+          </form>
+          <div class="chat-footnote">
+            Responses use retrieved textbook evidence. Verify important details.
+          </div>
+        </div>
+      </section>
+
+      <section class="view embedded-view" id="lab-view">
+        <div class="workspace-heading">
+          <div>
+            <div class="eyebrow">INTERACTIVE EXPLORATION</div>
+            <h1>AI Learning Lab</h1>
+            <p>Explore ML concepts with live simulations.</p>
+          </div>
+          <a class="secondary-button" href="http://localhost:5173/"
+             target="_blank" rel="noopener">Open separately ↗</a>
+        </div>
+        <iframe title="AI Learning Lab"
+                src="http://localhost:5173/"></iframe>
+      </section>
+
+      <section class="view embedded-view" id="coding-view">
+        <div class="workspace-heading">
+          <div>
+            <div class="eyebrow">PRACTICE & IMPLEMENTATION</div>
+            <h1>AI/ML Coding Arena</h1>
+            <p>Code, execute, and test your Python solutions.</p>
+          </div>
+          <a class="secondary-button" href="http://localhost:5174/"
+             target="_blank" rel="noopener">Open separately ↗</a>
+        </div>
+        <iframe title="AI Coding Arena"
+                src="http://localhost:5174/"></iframe>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

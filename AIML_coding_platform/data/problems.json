@@ -1,0 +1,107 @@
+
+[
+  {
+    "id": 1,
+    "title": "Mean Squared Error",
+    "difficulty": "Easy",
+    "topic": "Regression",
+    "description": "Implement Mean Squared Error (MSE). Given actual and predicted values, return the average squared difference.",
+    "formula": "MSE = (1/n) * sum((actual - predicted)^2)",
+    "functionName": "mse",
+    "starterCode": "def mse(y_true, y_pred):\n    # Write your solution here\n    pass",
+    "examples": [
+      {
+        "input": "mse([1, 2, 3], [1, 2, 4])",
+        "output": "0.3333333333"
+      }
+    ],
+    "tests": [
+      {"args": [[1, 2, 3], [1, 2, 4]], "expected": 0.3333333333333333},
+      {"args": [[1, 2, 3], [1, 2, 3]], "expected": 0},
+      {"args": [[0, 0], [2, 2]], "expected": 4},
+      {"args": [[-1, -2], [1, 2]], "expected": 10}
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Sigmoid Activation",
+    "difficulty": "Easy",
+    "topic": "Deep Learning",
+    "description": "Implement the sigmoid activation function for a single numeric input.",
+    "formula": "sigmoid(x) = 1 / (1 + exp(-x))",
+    "functionName": "sigmoid",
+    "starterCode": "import math\n\ndef sigmoid(x):\n    # Write your solution here\n    pass",
+    "examples": [
+      {"input": "sigmoid(0)", "output": "0.5"}
+    ],
+    "tests": [
+      {"args": [0], "expected": 0.5},
+      {"args": [1], "expected": 0.7310585786},
+      {"args": [-1], "expected": 0.2689414214},
+      {"args": [2], "expected": 0.880797078}
+    ]
+  },
+  {
+    "id": 3,
+    "title": "ReLU Activation",
+    "difficulty": "Easy",
+    "topic": "Deep Learning",
+    "description": "Implement ReLU. Return zero when the input is negative, otherwise return the input.",
+    "formula": "ReLU(x) = max(0, x)",
+    "functionName": "relu",
+    "starterCode": "def relu(x):\n    # Write your solution here\n    pass",
+    "examples": [
+      {"input": "relu(-5)", "output": "0"}
+    ],
+    "tests": [
+      {"args": [-5], "expected": 0},
+      {"args": [0], "expected": 0},
+      {"args": [7], "expected": 7},
+      {"args": [0.25], "expected": 0.25}
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Euclidean Distance",
+    "difficulty": "Easy",
+    "topic": "Linear Algebra",
+    "description": "Calculate Euclidean distance between two vectors of equal length.",
+    "formula": "distance = sqrt(sum((a_i - b_i)^2))",
+    "functionName": "euclidean_distance",
+    "starterCode": "import math\n\ndef euclidean_distance(a, b):\n    # Write your solution here\n    pass",
+    "examples": [
+      {
+        "input": "euclidean_distance([0, 0], [3, 4])",
+        "output": "5.0"
+      }
+    ],
+    "tests": [
+      {"args": [[0, 0], [3, 4]], "expected": 5},
+      {"args": [[1, 2], [1, 2]], "expected": 0},
+      {"args": [[1, 1, 1], [2, 2, 2]], "expected": 1.7320508076},
+      {"args": [[-1, -2], [2, 2]], "expected": 5}
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Softmax Function",
+    "difficulty": "Medium",
+    "topic": "Classification",
+    "description": "Implement numerically stable softmax for a nonempty list of logits. Return a list of probabilities summing to one.",
+    "formula": "softmax(x_i) = exp(x_i - max(x)) / sum(exp(x_j - max(x)))",
+    "functionName": "softmax",
+    "starterCode": "import math\n\ndef softmax(logits):\n    # Write your solution here\n    pass",
+    "examples": [
+      {
+        "input": "softmax([0, 0])",
+        "output": "[0.5, 0.5]"
+      }
+    ],
+    "tests": [
+      {"args": [[0, 0]], "expected": [0.5, 0.5]},
+      {"args": [[1, 2, 3]], "expected": [0.0900305732, 0.2447284711, 0.6652409558]},
+      {"args": [[1000, 1000]], "expected": [0.5, 0.5]},
+      {"args": [[2]], "expected": [1]}
+    ]
+  }
+]
