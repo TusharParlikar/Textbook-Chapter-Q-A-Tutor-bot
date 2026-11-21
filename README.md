@@ -227,7 +227,7 @@ The execution worker runs **in the browser**, not on the chatbot server. This av
 
 ---
 
-## 🔭 Future Advanced RAG Workflow (Reference Design)
+## 🔭 RAG Workflow (Reference Design)
 
 The following architecture is inspired by the richer **planner → rewrite → retrieve → evaluate → retry/rerank → generate** flow in the accompanying workflow reference. It is included to explain the **intended next-generation design**. **These extra decision branches are not all implemented in the current chatbot.**
 
@@ -567,15 +567,9 @@ After setup, confirm each subsystem independently and then through the unified U
 
 > **Screenshot placeholders:** Add your own captures under a directory such as `docs/screenshots/`, then replace the placeholder blocks below with Markdown image links. Avoid putting API keys, personal information, or private chat data in screenshots.
 
-### 1. Unified dashboard
 
-<!-- SCREENSHOT: docs/screenshots/dashboard.png -->
 
-> **[Insert screenshot: main dashboard showing all three modules]**
-
-<br>
-
-### 2. AI Textbook Tutor — answer with sources
+### 1. AI Textbook Tutor — answer with sources
 
 <!-- SCREENSHOT: docs/screenshots/chatbot-answer.png -->
 
@@ -583,15 +577,8 @@ After setup, confirm each subsystem independently and then through the unified U
 
 <br>
 
-### 3. AI Textbook Tutor — contextual follow-up
 
-<!-- SCREENSHOT: docs/screenshots/chatbot-followup.png -->
-
-> **[Insert screenshot: consecutive questions demonstrating conversation memory]**
-
-<br>
-
-### 4. AI Learning Lab — interactive Linear Regression
+### 2. AI Learning Lab — interactive Linear Regression
 
 <!-- SCREENSHOT: docs/screenshots/learning-lab-linear-regression.png -->
 
@@ -599,7 +586,7 @@ After setup, confirm each subsystem independently and then through the unified U
 
 <br>
 
-### 5. AI/ML Coding Arena — accepted solution
+### 3. AI/ML Coding Arena — accepted solution
 
 <!-- SCREENSHOT: docs/screenshots/coding-arena-results.png -->
 
@@ -607,21 +594,7 @@ After setup, confirm each subsystem independently and then through the unified U
 
 <br>
 
-### 6. Retrieval and reranking diagnostics
 
-<!-- SCREENSHOT: docs/screenshots/retrieval-results.png -->
-
-> **[Insert screenshot: hybrid retrieval versus reranked top passages with scores and source pages]**
-
-<br>
-
-### 7. Additional experiment results
-
-<!-- SCREENSHOT: docs/screenshots/experiments.png -->
-
-> **[Reserved for benchmark plots, ablation studies, and final evaluation results]**
-
----
 
 ## 📊 Evaluation Strategy
 
@@ -672,11 +645,6 @@ A good AI tutor should not be judged solely by whether its answers *sound* fluen
 - **Execution integrity:** Browser-side Pyodide is suitable for interactive practice, not high-stakes untrusted code grading.
 - **Development environment:** Vite's proxy configuration is for local development. A production deployment needs an appropriate reverse proxy/API deployment configuration.
 
-## 🤝 Contributing
-
-Contributions are welcome, especially around evaluation datasets, safer code execution, UI accessibility, chunking improvements, source verification, and testing. For substantial changes, open an issue describing the proposed change and its effect on existing modules.
-
----
 
 <div align="center">
 
