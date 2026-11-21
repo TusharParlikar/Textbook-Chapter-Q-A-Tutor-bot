@@ -571,28 +571,25 @@ After setup, confirm each subsystem independently and then through the unified U
 
 ### 1. AI Textbook Tutor — answer with sources
 
-<!-- SCREENSHOT: docs/screenshots/chatbot-answer.png -->
-
-> **[Insert screenshot: RAG answer, numbered references, and textbook source pages]**
 
 <br>
 
 
 ### 2. AI Learning Lab — interactive Linear Regression
 
-<!-- SCREENSHOT: docs/screenshots/learning-lab-linear-regression.png -->
-![alt text](<Screenshot 2026-11-21 163323.png>)
 
-> **[Insert screenshot: explanation, formula, slope/intercept sliders, plot, and error metric]**
+![Linear Regression simulation with interactive sliders](docs/screenshots/linear_regression.png)
+
+
 
 <br>
 
 ### 3. AI/ML Coding Arena — accepted solution
 
-<!-- SCREENSHOT: docs/screenshots/coding-arena-results.png -->
-![alt text](<Screenshot 2026-11-21 165505.png>)
 
-> **[Insert screenshot: Monaco editor with solution and test-case results]**
+![Coding Arena showing accepted Python solution](docs/screenshots/coding_arena.png)
+
+
 
 <br>
 
