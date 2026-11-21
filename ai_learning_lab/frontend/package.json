@@ -1,0 +1,27 @@
+{
+  "name": "ai-learning-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.22.0",
+    "katex": "^0.19.1",
+    "mathjs": "^15.2.0",
+    "plotly.js-dist-min": "^4.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@rollup/rollup-win32-x64-msvc": "^4.68.7",
+    "@types/katex": "^0.16.8",
+    "@types/plotly.js-dist-min": "^2.3.4",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.0.0"
+  }
+}

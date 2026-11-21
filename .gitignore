@@ -17,6 +17,8 @@ __pycache__/
 
 
 .env
+.env.*
+!.env.example
 
 .vscode/
 .idea/
@@ -62,3 +64,7 @@ hf_cache/
 
 *.tmp
 *.temp
+
+node_modules/
+.npm-cache/
+frontend/dist/
