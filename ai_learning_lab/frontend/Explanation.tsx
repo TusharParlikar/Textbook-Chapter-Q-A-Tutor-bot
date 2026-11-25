@@ -7,25 +7,30 @@ export type LearningResult = {
   parameters: Record<string, unknown>;
 };
 
-export default function Explanation({
-  data
-}: {
-  data: LearningResult;
-}) {
+export default function Explanation({ data }: { data: LearningResult }) {
   return (
-    <section>
+    <article className="lab-card lab-explain">
+      <p className="kicker">Concept</p>
       <h2>{data.title}</h2>
-      <p>{data.explanation}</p>
+      <p className="lab-prose">{data.explanation}</p>
 
-      <h3>Formula</h3>
-      <p><code>{data.formula}</code></p>
+      {data.formula && (
+        <>
+          <h3>Formula</h3>
+          <pre className="formula">{data.formula}</pre>
+        </>
+      )}
 
-      <h3>Key Learning Points</h3>
-      <ul>
-        {data.steps.map((step, i) => (
-          <li key={i}>{step}</li>
-        ))}
-      </ul>
-    </section>
+      {!!data.steps?.length && (
+        <>
+          <h3>Key points</h3>
+          <ol className="lab-steps">
+            {data.steps.map((step, i) => (
+              <li key={i}>{step}</li>
+            ))}
+          </ol>
+        </>
+      )}
+    </article>
   );
 }

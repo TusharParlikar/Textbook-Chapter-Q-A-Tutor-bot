@@ -17,7 +17,8 @@ def load_books():
         path = DATA_DIR / filename
 
         if not path.exists():
-            raise FileNotFoundError(f"Missing PDF: {path}")
+            print(f"Skipping missing PDF: {path}")
+            continue
 
         pages = PyPDFLoader(str(path)).load()
 
@@ -30,5 +31,10 @@ def load_books():
 
         documents.extend(pages)
         print(f"Loaded {len(pages)} pages from {filename}")
+
+    if not documents:
+        raise FileNotFoundError(
+            f"No textbook PDFs found in {DATA_DIR}. Expected: {', '.join(BOOKS.values())}"
+        )
 
     return documents

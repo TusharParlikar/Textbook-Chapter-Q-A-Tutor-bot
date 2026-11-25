@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 
 import problemsData from "../data/problems.json";
@@ -6,12 +5,13 @@ import ProblemList, { type Problem } from "./ProblemList";
 import ProblemDescription from "./ProblemDescription";
 import CodeEditor from "./CodeEditor";
 import TestResults from "./TestResults";
+import "./arena.css";
 
 import {
   executeCode,
   submitSolution,
   type ExecutionResult,
-  type GradingResult
+  type GradingResult,
 } from "./executor";
 
 const problems = problemsData as Problem[];
@@ -19,15 +19,11 @@ const problems = problemsData as Problem[];
 export default function Page() {
   const [selected, setSelected] = useState(problems[0]);
   const [code, setCode] = useState(problems[0].starterCode);
-  const [running, setRunning] = useState(false);
-
-  const [result, setResult] =
-    useState<ExecutionResult | null>(null);
-
-  const [grading, setGrading] =
-    useState<GradingResult | null>(null);
-
+  const [running, setRunning] = useState<"run" | "submit" | null>(null);
+  const [result, setResult] = useState<ExecutionResult | null>(null);
+  const [grading, setGrading] = useState<GradingResult | null>(null);
   const [error, setError] = useState("");
+  const [solved, setSolved] = useState<Set<number>>(() => new Set());
 
   function selectProblem(problem: Problem) {
     setSelected(problem);
@@ -38,7 +34,7 @@ export default function Page() {
   }
 
   async function run() {
-    setRunning(true);
+    setRunning("run");
     setResult(null);
     setGrading(null);
     setError("");
@@ -48,91 +44,83 @@ export default function Page() {
     } catch (err) {
       setError(String(err));
     } finally {
-      setRunning(false);
+      setRunning(null);
     }
   }
 
   async function submit() {
-    setRunning(true);
+    setRunning("submit");
     setResult(null);
     setGrading(null);
     setError("");
 
     try {
-      setGrading(await submitSolution(code, selected));
+      const graded = await submitSolution(code, selected);
+      setGrading(graded);
+      if (graded.total > 0 && graded.passed === graded.total) {
+        setSolved(prev => new Set(prev).add(selected.id));
+      }
     } catch (err) {
       setError(String(err));
     } finally {
-      setRunning(false);
+      setRunning(null);
     }
   }
 
   return (
-    <main style={{
-      maxWidth: 1500,
-      margin: "20px auto",
-      padding: 20,
-      fontFamily: "Arial, sans-serif"
-    }}>
-      <h1>AI/ML Coding Platform</h1>
-      <p>Learn, implement and test machine learning algorithms.</p>
+    <section className="arena">
+      <header className="page-head">
+        <div>
+          <p className="kicker tone-text-vermilion">03 · Solve</p>
+          <h1>Coding Arena</h1>
+          <p className="page-sub">Implement the maths behind ML in Python. Code runs in your browser.</p>
+        </div>
+        <div className="arena-progress" aria-label="Progress">
+          <span className="arena-progress-n">{solved.size}</span>
+          <span className="kicker">of {problems.length} solved</span>
+        </div>
+      </header>
 
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "240px minmax(0, 1fr)",
-        gap: 20
-      }}>
+      <div className="arena-grid">
         <ProblemList
           problems={problems}
           selectedId={selected.id}
+          solved={solved}
           onSelect={selectProblem}
         />
 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns:
-            "repeat(auto-fit, minmax(min(100%, 360px), 1fr))",
-          gap: 20
-        }}>
-          <ProblemDescription problem={selected} />
+        <ProblemDescription problem={selected} />
 
-          <div style={{ minWidth: 0 }}>
-            <div style={{ marginBottom: 15 }}>
-              <button
-                onClick={run}
-                disabled={running}
-                style={{ padding: "12px 20px", marginRight: 10 }}
-              >
-                Run Code
-              </button>
-
-              <button
-                onClick={submit}
-                disabled={running}
-                style={{
-                  padding: "12px 20px",
-                  background: "#16a34a",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: 6
-                }}
-              >
-                Submit Solution
-              </button>
+        <div className="arena-work">
+          <div className="editor-frame">
+            <div className="editor-bar">
+              <span className="editor-file">
+                <span className="dot" />
+                {selected.functionName}.py
+              </span>
+              <div className="editor-actions">
+                <button
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => setCode(selected.starterCode)}
+                  disabled={!!running || code === selected.starterCode}
+                >
+                  Reset
+                </button>
+                <button className="btn btn-ghost btn-sm" onClick={run} disabled={!!running}>
+                  {running === "run" ? "Running…" : "Run"}
+                </button>
+                <button className="btn btn-accent btn-sm" onClick={submit} disabled={!!running}>
+                  {running === "submit" ? "Grading…" : "Submit"}
+                </button>
+              </div>
             </div>
 
             <CodeEditor code={code} onChange={setCode} />
-
-            {running && <p>Executing Python...</p>}
-
-            <TestResults
-              result={result}
-              grading={grading}
-              error={error}
-            />
           </div>
+
+          <TestResults result={result} grading={grading} error={error} running={running} />
         </div>
       </div>
-    </main>
+    </section>
   );
 }

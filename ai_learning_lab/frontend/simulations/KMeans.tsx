@@ -5,7 +5,7 @@ import Plotly from "plotly.js-dist-min";
 type Point = { x: number; y: number };
 
 const colors = [
-  "#6366f1", "#10b981", "#f59e0b", "#ef4444", "#ec4899"
+  "#2F7A63", "#7C9A3E", "#C99A2E", "#C8553D", "#8A5A7E"
 ];
 
 function generatePoints(): Point[] {
@@ -115,7 +115,7 @@ export default function KMeans() {
           color: centers.map((_, i) => colors[i]),
           size: 20,
           symbol: "x",
-          line: { width: 2, color: "#111827" }
+          line: { width: 2, color: "#1E2522" }
         }
       }
     ], {

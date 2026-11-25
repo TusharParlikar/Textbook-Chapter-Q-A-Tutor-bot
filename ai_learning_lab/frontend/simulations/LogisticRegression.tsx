@@ -82,7 +82,7 @@ export default function LogisticRegression() {
         name: "Predicted probability",
         type: "scatter",
         mode: "lines",
-        line: { color: "#8b5cf6", width: 3 }
+        line: { color: "#6B5B95", width: 3 }
       },
       {
         x: points.map(p => p.x),
@@ -93,7 +93,7 @@ export default function LogisticRegression() {
         marker: {
           size: 12,
           color: points.map(p =>
-            p.y === 1 ? "#10b981" : "#ef4444"
+            p.y === 1 ? "#7C9A3E" : "#C8553D"
           )
         }
       },
@@ -103,7 +103,7 @@ export default function LogisticRegression() {
         name: "Classification threshold",
         type: "scatter",
         mode: "lines",
-        line: { color: "#f59e0b", dash: "dash" }
+        line: { color: "#C99A2E", dash: "dash" }
       }
     ], {
       title: { text: "Binary Classification" },

@@ -96,7 +96,7 @@ export default function Overfitting() {
           type: "scatter",
           mode: "lines",
           name: "True function",
-          line: { color: "#10b981", dash: "dash" }
+          line: { color: "#7C9A3E", dash: "dash" }
         },
         {
           x: points.map(p => p.x),
@@ -106,7 +106,7 @@ export default function Overfitting() {
           name: "Training data",
           marker: {
             color: points.map((_, i) =>
-              i === selected ? "#ef4444" : "#3b82f6"
+              i === selected ? "#C8553D" : "#4A6F94"
             ),
             size: 10
           }
@@ -117,7 +117,7 @@ export default function Overfitting() {
           type: "scatter",
           mode: "lines",
           name: "Model prediction",
-          line: { color: "#8b5cf6", width: 3 }
+          line: { color: "#6B5B95", width: 3 }
         }
       ],
       {
@@ -126,8 +126,8 @@ export default function Overfitting() {
         autosize: true,
         xaxis: { title: { text: "Input (X)" } },
         yaxis: { title: { text: "Prediction (Y)" } },
-        paper_bgcolor: "#ffffff",
-        plot_bgcolor: "#f8fafc",
+        paper_bgcolor: "rgba(0,0,0,0)",
+        plot_bgcolor: "rgba(0,0,0,0)",
         legend: { orientation: "h", y: -0.2 },
         margin: { l: 55, r: 20, t: 55, b: 95 }
       },
@@ -168,7 +168,7 @@ export default function Overfitting() {
         display: "flex",
         justifyContent: "space-between",
         padding: 16,
-        background: "#f1f5f9",
+        background: "var(--surface-2)",
         borderRadius: 12
       }}>
         <div>

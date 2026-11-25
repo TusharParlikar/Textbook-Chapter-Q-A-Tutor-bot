@@ -1,93 +1,80 @@
-
-import type {
-  ExecutionResult,
-  GradingResult
-} from "./executor";
+import type { ExecutionResult, GradingResult } from "./executor";
 
 type Props = {
   result: ExecutionResult | null;
   grading: GradingResult | null;
   error: string;
+  running?: "run" | "submit" | null;
 };
 
-export default function TestResults({
-  result, grading, error
-}: Props) {
+export default function TestResults({ result, grading, error, running }: Props) {
+  const accepted = grading && grading.total > 0 && grading.passed === grading.total;
+
   return (
-    <section style={{
-      background: "#111827",
-      color: "white",
-      padding: 20,
-      borderRadius: 10,
-      marginTop: 16
-    }}>
-      <h3>Execution Results</h3>
+    <section className="console" aria-live="polite">
+      <div className="console-head">
+        <span className="kicker">Console</span>
+        {result && <span className="console-runtime">{result.runtime.toFixed(1)} ms</span>}
+      </div>
 
-      {error && <pre style={{
-        color: "#f87171",
-        whiteSpace: "pre-wrap"
-      }}>{error}</pre>}
-
-      {result && (
-        <>
-          <p style={{
-            color: result.success ? "#4ade80" : "#f87171"
-          }}>
-            {result.success ? "Executed" : "Execution Failed"}
+      <div className="console-body">
+        {running && (
+          <p className="console-muted">
+            {running === "run" ? "Running Python…" : "Grading your solution…"}
+            {" "}The first run loads Python in the browser and can take a few seconds.
           </p>
+        )}
 
-          <pre style={{ whiteSpace: "pre-wrap" }}>
-            {result.output || "(No printed output)"}
-          </pre>
+        {!running && !result && !grading && !error && (
+          <p className="console-muted">Run your code to see printed output here.</p>
+        )}
 
-          {result.error && (
-            <pre style={{ color: "#f87171" }}>
-              {result.error}
-            </pre>
-          )}
+        {error && <pre className="out-bad">{error}</pre>}
 
-          <p>Runtime: {result.runtime.toFixed(2)} ms</p>
-        </>
-      )}
+        {result && (
+          <>
+            <p className={result.success ? "out-ok" : "out-bad"}>
+              {result.success ? "● Ran successfully" : "● Execution failed"}
+            </p>
+            <pre>{result.output || "(no printed output)"}</pre>
+            {result.error && <pre className="out-bad">{result.error}</pre>}
+          </>
+        )}
 
-      {grading && (
-        <>
-          <h3 style={{
-            color: grading.passed === grading.total
-              ? "#4ade80" : "#fbbf24"
-          }}>
-            {grading.passed === grading.total
-              ? "Accepted"
-              : "Wrong Answer"}
-          </h3>
-
-          <p>
-            {grading.passed}/{grading.total} test cases passed
-          </p>
-
-          {grading.results.map((test, i) => (
-            <div key={i} style={{
-              padding: 10,
-              borderBottom: "1px solid #334155"
-            }}>
-              <strong style={{
-                color: test.passed ? "#4ade80" : "#f87171"
-              }}>
-                Test {i + 1}: {test.passed ? "Passed" : "Failed"}
-              </strong>
-
-              {!test.passed && (
-                <pre style={{ whiteSpace: "pre-wrap" }}>
-                  Expected: {JSON.stringify(test.expected)}
-                  {"\n"}
-                  Actual: {JSON.stringify(test.actual)}
-                  {test.error ? "\nError: " + test.error : ""}
-                </pre>
-              )}
+        {grading && (
+          <>
+            <div className="verdict">
+              <span className={accepted ? "out-ok" : "out-warn"}>
+                {accepted ? "Accepted" : "Not quite"}
+              </span>
+              <span className="console-muted">
+                {grading.passed}/{grading.total} tests passed
+              </span>
             </div>
-          ))}
-        </>
-      )}
+
+            <div className="meter" role="progressbar" aria-valuenow={grading.passed} aria-valuemax={grading.total}>
+              <span style={{ width: `${grading.total ? (grading.passed / grading.total) * 100 : 0}%` }} />
+            </div>
+
+            <ol className="tests">
+              {grading.results.map((test, i) => (
+                <li key={i} className={test.passed ? "is-pass" : "is-fail"}>
+                  <span className="test-name">
+                    {test.passed ? "✓" : "✕"} Test {i + 1}
+                  </span>
+                  {!test.passed && (
+                    <pre>
+                      expected {JSON.stringify(test.expected)}
+                      {"\n"}got      {JSON.stringify(test.actual)}
+                      {test.error ? `\n${test.error}` : ""}
+                    </pre>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </>
+        )}
+      </div>
     </section>
   );
 }

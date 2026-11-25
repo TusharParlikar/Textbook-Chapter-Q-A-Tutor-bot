@@ -152,9 +152,9 @@ export default function NeuralNetwork() {
         ),
         type: "heatmap",
         colorscale: [
-          [0, "#93c5fd"],
-          [0.5, "#ffffff"],
-          [1, "#fca5a5"]
+          [0, "#A9BFD3"],
+          [0.5, "#F4EFE6"],
+          [1, "#E9B3A4"]
         ],
         zmin: 0,
         zmax: 1,
@@ -166,7 +166,7 @@ export default function NeuralNetwork() {
         type: "scatter",
         mode: "markers",
         name: "Class A",
-        marker: { color: "#2563eb", size: 7 }
+        marker: { color: "#3D6A8F", size: 7 }
       },
       {
         x: points.filter(p => p.label === 1).map(p => p.x),
@@ -174,7 +174,7 @@ export default function NeuralNetwork() {
         type: "scatter",
         mode: "markers",
         name: "Class B",
-        marker: { color: "#dc2626", size: 7 }
+        marker: { color: "#A83E28", size: 7 }
       }
     ], {
       title: { text: "Live Decision Boundary" },
@@ -282,7 +282,7 @@ export default function NeuralNetwork() {
       <div style={{
         display: "flex",
         justifyContent: "space-between",
-        background: "#f1f5f9",
+        background: "var(--surface-2)",
         padding: 15,
         borderRadius: 12
       }}>
@@ -307,7 +307,7 @@ export default function NeuralNetwork() {
       <svg viewBox="0 0 500 250"
         style={{
           width: "100%",
-          background: "#f8fafc",
+          background: "var(--surface-2)",
           borderRadius: 12
         }}>
 
@@ -325,7 +325,7 @@ export default function NeuralNetwork() {
                     y1={nodeY(l, i)}
                     x2={nodeX(l + 1)}
                     y2={nodeY(l + 1, j)}
-                    stroke={w >= 0 ? "#2563eb" : "#ef4444"}
+                    stroke={w >= 0 ? "#3D6A8F" : "#C8553D"}
                     strokeWidth={Math.min(5, 0.5 + Math.abs(w))}
                     opacity={0.65}
                   />
@@ -343,9 +343,9 @@ export default function NeuralNetwork() {
               cy={nodeY(l, i)}
               r="10"
               fill={
-                l === 0 ? "#10b981" :
+                l === 0 ? "#7C9A3E" :
                 l === architecture.length - 1
-                  ? "#f59e0b" : "#8b5cf6"
+                  ? "#C99A2E" : "#6B5B95"
               }
               stroke="white"
               strokeWidth="2"
