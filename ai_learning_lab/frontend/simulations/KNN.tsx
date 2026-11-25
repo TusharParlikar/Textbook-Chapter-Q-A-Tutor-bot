@@ -51,7 +51,7 @@ export default function KNN() {
         type: "scatter",
         mode: "markers",
         name: "Class A",
-        marker: { color: "#3b82f6", size: 12 }
+        marker: { color: "#4A6F94", size: 12 }
       },
       {
         x: points.filter(p => p.label === 1).map(p => p.x),
@@ -59,7 +59,7 @@ export default function KNN() {
         type: "scatter",
         mode: "markers",
         name: "Class B",
-        marker: { color: "#ef4444", size: 12 }
+        marker: { color: "#C8553D", size: 12 }
       },
       {
         x: neighbors.flatMap(p => [qx, p.x, null]),
@@ -67,7 +67,7 @@ export default function KNN() {
         type: "scatter",
         mode: "lines",
         name: "Nearest neighbors",
-        line: { color: "#94a3b8", dash: "dash" }
+        line: { color: "#A7A99F", dash: "dash" }
       },
       {
         x: [qx],
@@ -76,10 +76,10 @@ export default function KNN() {
         mode: "markers",
         name: "Query point",
         marker: {
-          color: predicted === 0 ? "#3b82f6" : "#ef4444",
+          color: predicted === 0 ? "#4A6F94" : "#C8553D",
           size: 20,
           symbol: "diamond",
-          line: { color: "#111827", width: 2 }
+          line: { color: "#1E2522", width: 2 }
         }
       }
     ], {
@@ -107,7 +107,7 @@ export default function KNN() {
       <p>
         Predicted Class:
         <strong style={{
-          color: predicted === 0 ? "#3b82f6" : "#ef4444"
+          color: predicted === 0 ? "#4A6F94" : "#C8553D"
         }}>
           {predicted === 0 ? " Class A" : " Class B"}
         </strong>

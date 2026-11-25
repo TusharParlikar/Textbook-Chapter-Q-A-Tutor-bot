@@ -1,36 +1,59 @@
-
-import { useState } from "react";
-
 type Props = {
+  value: string;
+  onChange: (value: string) => void;
   onSearch: (query: string) => void;
   loading: boolean;
 };
 
-export default function QueryInput({ onSearch, loading }: Props) {
-  const [query, setQuery] = useState("Linear Regression");
+const TOPICS = [
+  "Linear Regression",
+  "Logistic Regression",
+  "K-Means",
+  "KNN",
+  "Gradient Descent",
+  "Overfitting",
+  "Neural Network",
+];
 
+export default function QueryInput({ value, onChange, onSearch, loading }: Props) {
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (query.trim()) onSearch(query.trim());
-      }}
-      style={{ display: "flex", gap: 12 }}
-    >
-      <input
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Ask an AI/ML concept..."
-        style={{
-          flex: 1,
-          padding: 14,
-          borderRadius: 10,
-          border: "1px solid #cbd5e1"
+    <div className="lab-query">
+      <form
+        className="lab-search"
+        onSubmit={e => {
+          e.preventDefault();
+          if (value.trim()) onSearch(value.trim());
         }}
-      />
-      <button disabled={loading} type="submit">
-        {loading ? "Generating..." : "Explore"}
-      </button>
-    </form>
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="6.5" />
+          <path d="m20 20-4.2-4.2" />
+        </svg>
+        <input
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          placeholder="e.g. Gradient descent, k-means, overfitting…"
+          aria-label="Concept to explore"
+        />
+        <button className="btn btn-primary" disabled={loading || !value.trim()} type="submit">
+          {loading ? "Building…" : "Explore"}
+        </button>
+      </form>
+
+      <div className="lab-topics">
+        <span className="kicker">Try</span>
+        {TOPICS.map(t => (
+          <button
+            key={t}
+            type="button"
+            className="chip"
+            disabled={loading}
+            onClick={() => onSearch(t)}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+    </div>
   );
 }

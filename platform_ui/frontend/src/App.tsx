@@ -1,73 +1,167 @@
-
-import { useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import LearningLab from "../../../ai_learning_lab/frontend/page";
 import CodingArena from "../../../AIML_coding_platform/frontend/page";
 import ChatbotPage from "./ChatbotPage";
+import Dashboard from "./Dashboard";
+import { Logo } from "./brand/Logo";
+import {
+  IconBook,
+  IconBrackets,
+  IconDesk,
+  IconMoon,
+  IconSun,
+  IconWave,
+} from "./icons";
 import "./App.css";
 
-type Module = "dashboard" | "chatbot" | "lab" | "coding";
+export type Module = "dashboard" | "chatbot" | "lab" | "coding";
+export type Handoff = { text: string; nonce: number };
+
+type NavItem = {
+  id: Module;
+  label: string;
+  verb: string;
+  icon: ReactNode;
+  tone: "pine" | "ochre" | "vermilion" | "ink";
+};
+
+const NAV: NavItem[] = [
+  { id: "dashboard", label: "Desk", verb: "Overview", icon: <IconDesk />, tone: "ink" },
+  { id: "chatbot", label: "Textbook Tutor", verb: "Study", icon: <IconBook />, tone: "pine" },
+  { id: "lab", label: "Learning Lab", verb: "Simulate", icon: <IconWave />, tone: "ochre" },
+  { id: "coding", label: "Coding Arena", verb: "Solve", icon: <IconBrackets />, tone: "vermilion" },
+];
+
+type Theme = "light" | "dark";
+
+function readTheme(): Theme {
+  try {
+    const saved = localStorage.getItem("margin-theme");
+    if (saved === "light" || saved === "dark") return saved;
+  } catch {
+    /* storage unavailable */
+  }
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+const HASH: Record<Module, string> = {
+  dashboard: "",
+  chatbot: "tutor",
+  lab: "lab",
+  coding: "arena",
+};
+
+function moduleFromHash(): Module {
+  const h = window.location.hash.replace("#", "");
+  const match = (Object.keys(HASH) as Module[]).find(m => HASH[m] === h);
+  return match ?? "dashboard";
+}
 
 export default function App() {
-  const [active, setActive] = useState<Module>("dashboard");
+  const [active, setActiveState] = useState<Module>(moduleFromHash);
 
-  const navigation: { id: Module; title: string }[] = [
-    { id: "dashboard", title: "Dashboard" },
-    { id: "chatbot", title: "AI Textbook Tutor" },
-    { id: "lab", title: "AI Learning Lab" },
-    { id: "coding", title: "AI/ML Coding Arena" },
-  ];
+  function setActive(m: Module) {
+    setActiveState(m);
+    const next = HASH[m] ? `#${HASH[m]}` : window.location.pathname;
+    if (window.location.hash !== (HASH[m] ? `#${HASH[m]}` : "")) {
+      history.pushState(null, "", next);
+    }
+    window.scrollTo({ top: 0 });
+  }
+
+  useEffect(() => {
+    const sync = () => setActiveState(moduleFromHash());
+    window.addEventListener("popstate", sync);
+    window.addEventListener("hashchange", sync);
+    return () => {
+      window.removeEventListener("popstate", sync);
+      window.removeEventListener("hashchange", sync);
+    };
+  }, []);
+  const [theme, setTheme] = useState<Theme>(readTheme);
+  const [tutorDraft, setTutorDraft] = useState<Handoff | null>(null);
+  const [labQuery, setLabQuery] = useState<Handoff | null>(null);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem("margin-theme", theme);
+    } catch {
+      /* storage unavailable */
+    }
+  }, [theme]);
+
+  function askTutor(text: string) {
+    setTutorDraft({ text, nonce: Date.now() });
+    setActive("chatbot");
+  }
+
+  function exploreInLab(text: string) {
+    setLabQuery({ text, nonce: Date.now() });
+    setActive("lab");
+  }
 
   return (
-    <div className="platform">
-      <aside className="sidebar">
-        <h2>✦ AI Learning</h2>
-        <p>One platform. Three ways to learn.</p>
+    <div className="shell">
+      <aside className="rail">
+        <div className="rail-brand">
+          <Logo />
+        </div>
 
-        <nav>
-          {navigation.map(item => (
+        <p className="kicker rail-label">Workspace</p>
+
+        <nav className="rail-nav" aria-label="Modules">
+          {NAV.map(item => (
             <button
               key={item.id}
-              className={active === item.id ? "active" : ""}
+              className={`rail-item tone-${item.tone}${active === item.id ? " is-active" : ""}`}
+              aria-current={active === item.id ? "page" : undefined}
               onClick={() => setActive(item.id)}
             >
-              {item.title}
+              <span className="rail-icon">{item.icon}</span>
+              <span className="rail-text">
+                <span className="rail-title">{item.label}</span>
+                <span className="rail-verb">{item.verb}</span>
+              </span>
             </button>
           ))}
         </nav>
+
+        <div className="rail-foot">
+          <div className="status">
+            <span className="status-dot" />
+            <span>via OpenRouter</span>
+          </div>
+
+          <button
+            className="theme-toggle"
+            onClick={() => setTheme(t => (t === "dark" ? "light" : "dark"))}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          >
+            {theme === "dark" ? <IconSun /> : <IconMoon />}
+          </button>
+        </div>
       </aside>
 
-      <main className="workspace">
-        <div style={{ display: active === "dashboard" ? "block" : "none" }}>
-          <h1>AI Learning Platform</h1>
-          <p>Choose a module to start learning.</p>
-
-          <div className="module-grid">
-            <button onClick={() => setActive("chatbot")}>
-              <h2>AI Textbook Tutor</h2>
-              <p>Ask questions from AI textbooks.</p>
-            </button>
-
-            <button onClick={() => setActive("lab")}>
-              <h2>AI Learning Lab</h2>
-              <p>Explore interactive AI/ML simulations.</p>
-            </button>
-
-            <button onClick={() => setActive("coding")}>
-              <h2>Coding Arena</h2>
-              <p>Solve AI/ML problems using Python.</p>
-            </button>
-          </div>
+      <main className={`stage stage-${active}`}>
+        <div hidden={active !== "dashboard"}>
+          <Dashboard
+            onOpen={setActive}
+            onAsk={askTutor}
+            onExplore={exploreInLab}
+          />
         </div>
 
-        <div style={{ display: active === "chatbot" ? "block" : "none" }}>
-          <ChatbotPage />
+        <div hidden={active !== "chatbot"}>
+          <ChatbotPage draft={tutorDraft} />
         </div>
 
-        <div style={{ display: active === "lab" ? "block" : "none" }}>
-          <LearningLab />
+        <div hidden={active !== "lab"}>
+          <LearningLab pendingQuery={labQuery} />
         </div>
 
-        <div style={{ display: active === "coding" ? "block" : "none" }}>
+        <div hidden={active !== "coding"}>
           <CodingArena />
         </div>
       </main>

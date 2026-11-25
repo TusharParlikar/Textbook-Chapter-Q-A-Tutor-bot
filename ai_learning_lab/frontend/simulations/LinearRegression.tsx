@@ -29,15 +29,15 @@ export default function LinearRegression() {
         viewBox="0 0 450 340"
         style={{
           width: "100%",
-          background: "#f8fafc",
+          background: "var(--surface-2)",
           borderRadius: 12
         }}
       >
         <line x1="40" y1="20" x2="40" y2="310"
-          stroke="#64748b" />
+          stroke="#8A8C82" />
 
         <line x1="40" y1="310" x2="420" y2="310"
-          stroke="#64748b" />
+          stroke="#8A8C82" />
 
         {points.map(([x, y], i) => (
           <g key={i}>
@@ -46,7 +46,7 @@ export default function LinearRegression() {
               y1={sy(y)}
               x2={sx(x)}
               y2={sy(predict(x))}
-              stroke="#f59e0b"
+              stroke="#C99A2E"
               strokeDasharray="4"
             />
 
@@ -54,7 +54,7 @@ export default function LinearRegression() {
               cx={sx(x)}
               cy={sy(y)}
               r="5"
-              fill="#2563eb"
+              fill="#3D6A8F"
             />
           </g>
         ))}
@@ -64,7 +64,7 @@ export default function LinearRegression() {
           y1={sy(predict(0))}
           x2={sx(9)}
           y2={sy(predict(9))}
-          stroke="#ef4444"
+          stroke="#C8553D"
           strokeWidth="3"
         />
       </svg>

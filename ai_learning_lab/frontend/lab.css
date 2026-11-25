@@ -1,0 +1,300 @@
+/* Learning Lab. Uses the Margin design tokens defined by the platform shell. */
+
+.lab-query {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.lab-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 6px 6px 16px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--ink-3);
+  box-shadow: var(--shadow-1);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.lab-search:focus-within {
+  border-color: var(--ochre);
+  box-shadow: 0 0 0 3px var(--ochre-tint);
+}
+
+.lab-search input {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--ink);
+  font-size: 16px;
+}
+
+.lab-search input::placeholder {
+  color: var(--ink-3);
+}
+
+.lab-topics {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.lab-topics .kicker {
+  margin-right: 4px;
+}
+
+.lab-topics .chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.lab-alert {
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border-radius: var(--r-md);
+  border: 1px solid color-mix(in srgb, var(--vermilion) 35%, transparent);
+  background: var(--vermilion-tint);
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.lab-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.lab-card {
+  min-width: 0;
+  padding: 24px 26px;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+}
+
+.lab-explain h2 {
+  margin: 6px 0 12px;
+  font-size: 28px;
+}
+
+.lab-explain h3 {
+  margin: 24px 0 10px;
+  font-size: 17px;
+}
+
+.lab-prose {
+  color: var(--ink-2);
+  line-height: 1.75;
+}
+
+.lab-steps {
+  counter-reset: step;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lab-steps li {
+  counter-increment: step;
+  position: relative;
+  padding: 10px 0 10px 40px;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+.lab-steps li + li {
+  border-top: 1px dashed var(--rule);
+}
+
+.lab-steps li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 11px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ochre);
+}
+
+.lab-blank {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  padding: 56px 20px;
+  border: 1px dashed var(--rule-strong);
+  border-radius: var(--r-lg);
+  color: var(--ink-3);
+  text-align: center;
+}
+
+.lab-blank svg {
+  width: min(280px, 80%);
+  height: auto;
+}
+
+/* Loading skeleton */
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sk {
+  display: block;
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--surface-2), var(--surface-3), var(--surface-2));
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+.sk-title { width: 55%; height: 22px; margin-bottom: 6px; }
+.sk-short { width: 60%; }
+.sk-block { height: 64px; margin-top: 10px; }
+.sk-chart { height: 340px; }
+
+@keyframes shimmer {
+  to { background-position: -200% 0; }
+}
+
+/* ---------- Simulations ----------
+   The simulation components render plain HTML controls; style them here
+   so every simulation matches the rest of the app. */
+
+.lab-sim section > h2 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.lab-sim section > h3 {
+  font-size: 16px;
+  margin: 20px 0 8px;
+}
+
+.lab-sim section > p {
+  margin: 8px 0;
+  color: var(--ink-2);
+}
+
+.lab-sim label {
+  display: block;
+  margin: 14px 0 4px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.lab-sim input[type="range"] {
+  width: 100%;
+  margin: 4px 0 6px;
+}
+
+.lab-sim select {
+  height: 36px;
+  min-width: 160px;
+  margin: 4px 0;
+  padding: 0 10px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.lab-sim button {
+  height: 36px;
+  margin: 8px 6px 0 0;
+  padding: 0 14px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.lab-sim button:hover:not(:disabled) {
+  background: var(--surface-2);
+  border-color: var(--ink-3);
+}
+
+.lab-sim button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.lab-sim svg text {
+  fill: var(--ink-2);
+  font-family: var(--sans);
+}
+
+.lab-sim svg circle[stroke="white"] {
+  stroke: var(--surface);
+}
+
+/* Plotly: transparent backgrounds and themed text so charts follow light/dark mode */
+
+.lab-sim .js-plotly-plot .main-svg {
+  background: transparent !important;
+}
+
+.lab-sim .js-plotly-plot .bg {
+  fill: var(--surface-2) !important;
+  fill-opacity: 0.5 !important;
+}
+
+.lab-sim .js-plotly-plot .gtitle,
+.lab-sim .js-plotly-plot .xtitle,
+.lab-sim .js-plotly-plot .ytitle,
+.lab-sim .js-plotly-plot .xtick text,
+.lab-sim .js-plotly-plot .ytick text,
+.lab-sim .js-plotly-plot .legendtext {
+  fill: var(--ink-2) !important;
+  font-family: var(--sans) !important;
+}
+
+.lab-sim .js-plotly-plot .gtitle {
+  fill: var(--ink) !important;
+  font-family: var(--serif) !important;
+}
+
+.lab-sim .js-plotly-plot .gridlayer path,
+.lab-sim .js-plotly-plot .zerolinelayer path {
+  stroke: var(--rule) !important;
+}
+
+.lab-sim .js-plotly-plot .modebar-btn path {
+  fill: var(--ink-3) !important;
+}
+
+.lab-sim .js-plotly-plot .modebar {
+  background: transparent !important;
+}
+
+@media (max-width: 1080px) {
+  .lab-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .lab-card {
+    padding: 18px;
+  }
+
+  .lab-search .btn {
+    padding: 0 12px;
+  }
+}

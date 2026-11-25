@@ -32,10 +32,10 @@ function DynamicChart({ config }: { config: ChartConfig }) {
     if (!element) return;
 
     const colors = [
-      "#6366f1",
-      "#10b981",
-      "#f59e0b",
-      "#ec4899"
+      "#2F7A63",
+      "#7C9A3E",
+      "#C99A2E",
+      "#8A5A7E"
     ];
 
     const data = config.traces.map((trace, i) => ({
@@ -61,11 +61,11 @@ function DynamicChart({ config }: { config: ChartConfig }) {
         yaxis: {
           title: { text: config.y_label }
         },
-        paper_bgcolor: "#ffffff",
-        plot_bgcolor: "#f8fafc",
+        paper_bgcolor: "rgba(0,0,0,0)",
+        plot_bgcolor: "rgba(0,0,0,0)",
         font: {
-          family: "Arial, sans-serif",
-          color: "#334155"
+          family: "IBM Plex Sans, Segoe UI, sans-serif",
+          color: "#4A524D"
         },
         autosize: true,
         height: 420,
@@ -95,7 +95,7 @@ function DynamicChart({ config }: { config: ChartConfig }) {
         ref={chartRef}
         style={{ width: "100%", minWidth: 0 }}
       />
-      <p style={{ color: "#64748b", fontSize: 13 }}>
+      <p style={{ color: "#8A8C82", fontSize: 13 }}>
         Hover to inspect values. Zoom, pan, or toggle
         data series using the graph controls.
       </p>

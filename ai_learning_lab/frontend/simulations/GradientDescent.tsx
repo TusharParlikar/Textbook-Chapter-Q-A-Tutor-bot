@@ -61,7 +61,7 @@ export default function GradientDescent() {
         type: "scatter",
         mode: "lines",
         name: "Loss function",
-        line: { color: "#8b5cf6", width: 3 }
+        line: { color: "#6B5B95", width: 3 }
       },
       {
         x: history,
@@ -69,7 +69,7 @@ export default function GradientDescent() {
         type: "scatter",
         mode: "lines+markers",
         name: "Optimization trajectory",
-        line: { color: "#f59e0b", dash: "dash" },
+        line: { color: "#C99A2E", dash: "dash" },
         marker: { size: 7 }
       },
       {
@@ -78,7 +78,7 @@ export default function GradientDescent() {
         type: "scatter",
         mode: "markers",
         name: "Current position",
-        marker: { color: "#ef4444", size: 16 }
+        marker: { color: "#C8553D", size: 16 }
       }
     ], {
       title: { text: "Gradient Descent Optimization" },

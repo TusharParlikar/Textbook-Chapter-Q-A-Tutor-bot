@@ -81,3 +81,5 @@ repair_pdf.py
 
 # Local caches
 .cache/
+# Textbooks dropped into docs/ (copyrighted, large)
+docs/*.pdf

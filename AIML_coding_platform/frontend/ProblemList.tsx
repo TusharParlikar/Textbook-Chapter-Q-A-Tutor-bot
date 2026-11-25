@@ -1,3 +1,4 @@
+import { useState } from "react";
 
 export type TestCase = {
   args: unknown[];
@@ -20,47 +21,60 @@ export type Problem = {
 type Props = {
   problems: Problem[];
   selectedId: number;
+  solved?: Set<number>;
   onSelect: (problem: Problem) => void;
 };
 
-export default function ProblemList({
-  problems, selectedId, onSelect
-}: Props) {
+export default function ProblemList({ problems, selectedId, solved, onSelect }: Props) {
+  const [filter, setFilter] = useState("");
+  const q = filter.trim().toLowerCase();
+  const shown = q
+    ? problems.filter(p => `${p.title} ${p.topic}`.toLowerCase().includes(q))
+    : problems;
+
   return (
-    <aside>
-      <h3>Problems ({problems.length})</h3>
+    <aside className="arena-list">
+      <div className="arena-list-head">
+        <span className="kicker">Problems · {problems.length}</span>
+      </div>
 
-      {problems.map(problem => (
-        <div
-          key={problem.id}
-          onClick={() => onSelect(problem)}
-          style={{
-            padding: 14,
-            marginBottom: 8,
-            borderRadius: 8,
-            cursor: "pointer",
-            border: selectedId === problem.id
-              ? "2px solid #6366f1"
-              : "1px solid #e2e8f0",
-            background: selectedId === problem.id
-              ? "#eef2ff" : "#fff"
-          }}
-        >
-          <strong>{problem.id}. {problem.title}</strong>
+      <input
+        className="field field-sm"
+        value={filter}
+        onChange={e => setFilter(e.target.value)}
+        placeholder="Filter by title or topic"
+        aria-label="Filter problems"
+      />
 
-          <p style={{ margin: "6px 0", fontSize: 13 }}>
-            {problem.topic}
-          </p>
-
-          <span style={{
-            fontSize: 12,
-            color: problem.difficulty === "Easy"
-              ? "#16a34a" : "#d97706"
-          }}>
-            {problem.difficulty}
-          </span>
-        </div>
-      ))}
+      <ul>
+        {shown.map(problem => {
+          const active = selectedId === problem.id;
+          const done = solved?.has(problem.id);
+          return (
+            <li key={problem.id}>
+              <button
+                className={`problem-item${active ? " is-active" : ""}`}
+                aria-current={active ? "true" : undefined}
+                onClick={() => onSelect(problem)}
+              >
+                <span className={`problem-mark${done ? " is-done" : ""}`}>
+                  {done ? "✓" : String(problem.id).padStart(2, "0")}
+                </span>
+                <span className="problem-text">
+                  <span className="problem-title">{problem.title}</span>
+                  <span className="problem-meta">
+                    {problem.topic}
+                    <span className={`diff diff-${problem.difficulty.toLowerCase()}`}>
+                      {problem.difficulty}
+                    </span>
+                  </span>
+                </span>
+              </button>
+            </li>
+          );
+        })}
+        {shown.length === 0 && <li className="problem-none">No problems match.</li>}
+      </ul>
     </aside>
   );
 }
